@@ -4,7 +4,7 @@
   "description": "String Scrambler takes string values as input, replaces a subset of the characters, and returns the transformed string.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "ava"
   },
   "repository": {
     "type": "git",
@@ -18,5 +18,8 @@
   "homepage": "https://github.com/jrmykolyn/sfco-string-scrambler#readme",
   "dependencies": {
     "sfco-js-utils": "^0.1.0"
+  },
+  "devDependencies": {
+    "ava": "^0.19.1"
   }
 }

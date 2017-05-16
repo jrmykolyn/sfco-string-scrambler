@@ -1,0 +1,19 @@
+{
+  "name": "sfco-string-scrambler",
+  "version": "0.0.0",
+  "description": "String Scrambler takes string values as input, replaces a subset of the characters, and returns the transformed string.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jrmykolyn/sfco-string-scrambler.git"
+  },
+  "author": "Jesse R Mykolyn",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jrmykolyn/sfco-string-scrambler/issues"
+  },
+  "homepage": "https://github.com/jrmykolyn/sfco-string-scrambler#readme"
+}

@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/jrmykolyn/sfco-string-scrambler/issues"
   },
-  "homepage": "https://github.com/jrmykolyn/sfco-string-scrambler#readme"
+  "homepage": "https://github.com/jrmykolyn/sfco-string-scrambler#readme",
+  "dependencies": {
+    "sfco-js-utils": "^0.1.0"
+  }
 }

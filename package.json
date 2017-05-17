@@ -20,6 +20,9 @@
     "sfco-js-utils": "^0.1.0"
   },
   "devDependencies": {
-    "ava": "^0.19.1"
+    "ava": "^0.19.1",
+    "gulp": "^3.9.1",
+    "gulp-browserify": "^0.5.1",
+    "sfco-path-map": "^0.4.1"
   }
 }

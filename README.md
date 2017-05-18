@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/jrmykolyn/sfco-string-scrambler.svg?branch=master)](https://travis-ci.org/jrmykolyn/sfco-string-scrambler)
+
 # Short Future Co. - String Scrambler
 
 ## About

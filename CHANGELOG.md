@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+### Added
+- ...
+
+### Changed
+- Dropped [spread operator](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Spread_operator) and implemented alternative solution for internal data concatenation.
+
 ## [0.1.0] - 2017-05-17
 ### Added
 - Initialized project as `npm` package.

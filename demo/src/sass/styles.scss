@@ -1,0 +1,26 @@
+@import 'bourbon';
+@import 'susy';
+@import 'sfco-sass-utils';
+
+* {
+	box-sizing: border-box;
+}
+
+html {
+	font-size: 62.5%;
+}
+
+html,
+body {
+	@include set( margin padding, 0 );
+}
+
+body {
+	font-family: Helvetica, Arial, sans-serif;
+	line-height: 1.5;
+}
+
+main {
+	@include container( 128rem );
+	@include dims( 94% auto );
+}

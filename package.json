@@ -1,6 +1,6 @@
 {
   "name": "sfco-string-scrambler",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "String Scrambler takes string values as input, replaces a subset of the characters, and returns the transformed string.",
   "main": "index.js",
   "scripts": {

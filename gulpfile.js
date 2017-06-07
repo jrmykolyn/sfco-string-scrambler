@@ -33,9 +33,7 @@ const sassOpts = {
 // --------------------------------------------------
 // DEFINE TASKS
 // --------------------------------------------------
-gulp.task( 'default', [ 'scripts', 'styles' ], function() {
-
-} );
+gulp.task( 'default', [ 'scripts', 'styles', 'watch' ] );
 
 gulp.task( 'scripts', function() {
 	return gulp.src( PATHS.demoScriptsSrc )
@@ -53,4 +51,9 @@ gulp.task( 'styles', function() {
 	gulp.src( PATHS.demoStylesSrc )
 		.pipe( sass( sassOpts ) )
 		.pipe( gulp.dest( PATHS.demoStylesDest ) );
+} );
+
+gulp.task( 'watch', function() {
+	gulp.watch( PATHS.demoScriptsSrc, [ 'scripts' ] );
+	gulp.watch( PATHS.demoStylesSrc, [ 'styles' ] );
 } );

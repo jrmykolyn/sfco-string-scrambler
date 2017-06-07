@@ -3,9 +3,9 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## [0.1.1] - 2017-06-07
 ### Added
-- ...
+- Added [Travis CI](https://travis-ci.org/) configuration file to project.
 
 ### Changed
 - Dropped [spread operator](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Spread_operator) and implemented alternative solution for internal data concatenation.

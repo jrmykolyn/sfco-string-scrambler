@@ -2,14 +2,14 @@
 // IMPORT MODULES
 // --------------------------------------------------
 // Project
-const CHARS = require( './chars' );
+const ALPHA = require( './alpha' );
 const NUMS = require( './nums' );
 
 // --------------------------------------------------
 // DECLARE VARS
 // --------------------------------------------------
 var DATA = {
-	CHARS,
+	ALPHA,
 	NUMS
 };
 

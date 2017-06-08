@@ -4,13 +4,15 @@
 // Project
 const ALPHA = require( './alpha' );
 const NUMS = require( './nums' );
+const SYMBOLS = require( './symbols' );
 
 // --------------------------------------------------
 // DECLARE VARS
 // --------------------------------------------------
 var DATA = {
 	ALPHA,
-	NUMS
+	NUMS,
+	SYMBOLS
 };
 
 var ALL = Object.keys( DATA )

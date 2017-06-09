@@ -2,7 +2,7 @@
 // --------------------------------------------------
 // DECLARE VARS
 // --------------------------------------------------
-const CHARS = [
+const ALPHA = [
 	'a',
 	'b',
 	'c',
@@ -34,22 +34,24 @@ const CHARS = [
 // --------------------------------------------------
 // PUBLIC API
 // --------------------------------------------------
-module.exports = CHARS;
+module.exports = ALPHA;
 
 },{}],2:[function(require,module,exports){
 // --------------------------------------------------
 // IMPORT MODULES
 // --------------------------------------------------
 // Project
-const CHARS = require( './chars' );
+const ALPHA = require( './alpha' );
 const NUMS = require( './nums' );
+const SYMBOLS = require( './symbols' );
 
 // --------------------------------------------------
 // DECLARE VARS
 // --------------------------------------------------
 var DATA = {
-	CHARS,
-	NUMS
+	ALPHA,
+	NUMS,
+	SYMBOLS
 };
 
 var ALL = Object.keys( DATA )
@@ -64,7 +66,7 @@ DATA.ALL = ALL;
 // --------------------------------------------------
 module.exports = DATA;
 
-},{"./chars":1,"./nums":3}],3:[function(require,module,exports){
+},{"./alpha":1,"./nums":3,"./symbols":4}],3:[function(require,module,exports){
 // --------------------------------------------------
 // DECLARE VARS
 // --------------------------------------------------
@@ -87,38 +89,113 @@ const CHARS = [
 module.exports = CHARS;
 
 },{}],4:[function(require,module,exports){
+// --------------------------------------------------
+// DECLARE VARS
+// --------------------------------------------------
+const SYMBOLS = [
+	'!',
+	'@',
+	'#',
+	'$',
+	'%',
+	'^',
+	'&',
+	'*',
+	'(',
+	')',
+	'?'
+];
+
+// --------------------------------------------------
+// PUBLIC API
+// --------------------------------------------------
+module.exports = SYMBOLS;
+
+},{}],5:[function(require,module,exports){
+module.exports = {
+	restrictTo: 'ALL'
+};
+
+},{}],6:[function(require,module,exports){
 ( function() {
 	// --------------------------------------------------
 	// DECLARE VARS
 	// --------------------------------------------------
 	var stringScrambler = require( '../../../index' );
-	var btns = document.querySelectorAll( 'button' );
 
-	// --------------------------------------------------
-	// REGISTER EVENT LISTENERS
-	// --------------------------------------------------
-	btns.forEach( function( button ) {
-		button.addEventListener( 'click', function() {
-			var parent = this.parentElement;
-			var target = parent.querySelector( '.target' );
-			var text = target.innerHTML;
-			var opts = getOptions( parent );
+	// Elems.
+	var demo = document.getElementById( 'demo' );
 
-			/// TODO[@jrmykolyn] - Pass `opts` into `stringScrambler` call... when possible.
-
-			target.innerHTML = stringScrambler( text );
-		} );
-	} );
+	// Examples
+	var examples = [
+		{
+			description: 'Default example.',
+			text: 'Input Text'
+		}
+	];
 
 	// --------------------------------------------------
 	// DECLARE FUNCTIONS
 	// --------------------------------------------------
+	function init( examples ) {
+		examples.forEach( function( example ) {
+			var html = buildExampleElems( example );
+
+			demo.appendChild( html );
+		} );
+
+		addEventListeners();
+	}
+
+	function buildExampleElems( data ) {
+		var wrapper = document.createElement( 'article' );
+		wrapper.classList.add( 'example' );
+
+		if ( data.options ) {
+			var optionsStr = Object.keys( data.options )
+				.map( ( key ) => {
+					return [ key, data.options[ key ] ];
+				} )
+				.reduce( ( a, b ) => {
+					a += `${b[0]}:${b[1]};`;
+
+					return a;
+				}, '' );
+
+			wrapper.setAttribute( 'data-options', optionsStr );
+		}
+
+		var description = document.createElement( 'p' );
+		description.innerHTML = data.description || '/// TEMP - FALLBACK';
+
+		var targetWrap = document.createElement( 'div' );
+		targetWrap.classList.add( 'target-wrap' );
+
+		var target = document.createElement( 'h1' );
+		target.classList.add( 'target' );
+		target.innerHTML = data.text || '/// TEMP - FALLBACK';
+
+		var btn = document.createElement( 'button' );
+		btn.innerHTML = 'Scramble';
+
+		targetWrap.appendChild( target );
+		wrapper.appendChild( description );
+		wrapper.appendChild( targetWrap );
+		wrapper.appendChild( btn );
+
+		return wrapper;
+	}
+
 	function getOptions( node ) {
 		if ( !node || !node.getAttribute( 'data-options' ) ) {
 			return null;
 		} else {
+
 			return node.getAttribute( 'data-options' )
 				.split( ';' )
+				.reduce( ( a, b ) => {
+					return ( !!b ) ? a.concat( b ) : a;
+				}, [] )
 				.map( function( opt ) {
 					return opt.replace( / /gmi, '' );
 				} )
@@ -144,9 +221,30 @@ module.exports = CHARS;
 				}, {} );
 		}
 	}
+
+	function addEventListeners() {
+		var btns = document.querySelectorAll( 'button' );
+
+		btns.forEach( function( button ) {
+			button.addEventListener( 'click', function() {
+				var parent = this.parentElement;
+				var target = parent.querySelector( '.target' );
+				var input = target.innerHTML;
+				var options = getOptions( parent ) || {};
+				var output = stringScrambler( input, options );
+
+				target.innerHTML = output;
+			} );
+		} );
+	}
+
+	// --------------------------------------------------
+	// INIT
+	// --------------------------------------------------
+	init( examples );
 } )();
 
-},{"../../../index":5}],5:[function(require,module,exports){
+},{"../../../index":7}],7:[function(require,module,exports){
 // --------------------------------------------------
 // IMPORT MODULES
 // --------------------------------------------------
@@ -158,7 +256,7 @@ const stringScrambler = require( './lib/string-scrambler' );
 // --------------------------------------------------
 module.exports = stringScrambler;
 
-},{"./lib/string-scrambler":6}],6:[function(require,module,exports){
+},{"./lib/string-scrambler":8}],8:[function(require,module,exports){
 // --------------------------------------------------
 // IMPORT MODULES
 // --------------------------------------------------
@@ -166,22 +264,40 @@ module.exports = stringScrambler;
 const { sample } = require( 'sfco-js-utils' ).ArrayUtils;
 
 // Project
-const DATA = require( '../data' );
+const DEFAULTS = require( '../data/defaults' );
+const CHARS = require( '../data/chars' );
 
 // --------------------------------------------------
 // DECLARE VARS
 // --------------------------------------------------
-const { ALL } = DATA;
+var SETTINGS = {};
+
+var charSetName;
+var charSet;
 
 // --------------------------------------------------
 // DECLARE FUNCTIONS
 // --------------------------------------------------
-function stringScrambler( string ) {
+function stringScrambler( string, options ) {
+	// Re-assign args.
 	string = ( string && typeof string === 'string' ) ? string : null;
+	options = ( options && typeof options === 'object' ) ? options : {};
+
+	// Update settings.
+	SETTINGS = Object.assign( {}, DEFAULTS, options );
+
+	// Update `charSet`-related vars.
+	charSetName = SETTINGS.restrictTo.toString().toUpperCase();
+	charSet = ( charSetName in CHARS ) ? CHARS[ charSetName ] : CHARS.ALL;
+
+	// Check for presence of `userChars`, override `charSet` if matched && valid.
+	if ( Array.isArray( SETTINGS.useChars ) && SETTINGS.useChars.length ) {
+		charSet = SETTINGS.useChars;
+	}
 
 	if ( string ) {
 		return string.split( '' )
-			.map( char => { return ( char === ' ' ) ? ' ' : sample( ALL ); } )
+			.map( char => { return ( char === ' ' ) ? ' ' : sample( charSet ); } )
 			.join( '' );
 	} else {
 		throw new Error( '`stringScrambler` must invoked with a non-empty string as it\'s first argument.' );
@@ -193,7 +309,7 @@ function stringScrambler( string ) {
 // --------------------------------------------------
 module.exports = stringScrambler;
 
-},{"../data":2,"sfco-js-utils":7}],7:[function(require,module,exports){
+},{"../data/chars":2,"../data/defaults":5,"sfco-js-utils":9}],9:[function(require,module,exports){
 // --------------------------------------------------
 // IMPORT MODULES
 // --------------------------------------------------
@@ -207,7 +323,7 @@ module.exports = {
 	ArrayUtils
 }
 
-},{"./lib/array-utils":8}],8:[function(require,module,exports){
+},{"./lib/array-utils":10}],10:[function(require,module,exports){
 // --------------------------------------------------
 // DECLARE FUNCTIONS
 // --------------------------------------------------
@@ -234,4 +350,4 @@ module.exports = {
 	sample
 }
 
-},{}]},{},[4])
+},{}]},{},[6])

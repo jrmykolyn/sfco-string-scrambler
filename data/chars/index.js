@@ -2,15 +2,17 @@
 // IMPORT MODULES
 // --------------------------------------------------
 // Project
-const CHARS = require( './chars' );
+const ALPHA = require( './alpha' );
 const NUMS = require( './nums' );
+const SYMBOLS = require( './symbols' );
 
 // --------------------------------------------------
 // DECLARE VARS
 // --------------------------------------------------
 var DATA = {
-	CHARS,
-	NUMS
+	ALPHA,
+	NUMS,
+	SYMBOLS
 };
 
 var ALL = Object.keys( DATA )
